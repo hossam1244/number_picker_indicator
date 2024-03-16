@@ -1,6 +1,7 @@
 library number_picker;
 
 import 'package:flutter/material.dart';
+import 'package:number_picker/src/slider_shape.dart';
 
 // TODO customize the thumb and indicator color
 // TODO modify the thumb to be a customized image
@@ -38,19 +39,23 @@ class _NumberPickerIndicatorState extends State<NumberPickerIndicator> {
   }
 
   Widget _slider() {
-    return Slider(
-      min: widget.minValue!.toDouble(),
-      max: widget.maxValue!.toDouble(),
-      activeColor: Colors.grey,
-      inactiveColor: Colors.grey,
-      overlayColor: MaterialStateProperty.all(Colors.grey),
-      onChanged: (double value) {
-        setState(() {
-          widget.value = value.toInt();
-          widget.onChanged!(value.toInt());
-        });
-      },
-      value: widget.value!.toDouble(),
+    return SliderTheme(
+      data: const SliderThemeData(
+        thumbShape: AppSliderShape(thumbRadius: 10, thumbColor: Colors.red),
+      ),
+      child: Slider(
+        min: widget.minValue!.toDouble(),
+        max: widget.maxValue!.toDouble(),
+        activeColor: Colors.deepOrange,
+        inactiveColor: Colors.orangeAccent,
+        onChanged: (double value) {
+          setState(() {
+            widget.value = value.toInt();
+            widget.onChanged!(value.toInt());
+          });
+        },
+        value: widget.value!.toDouble(),
+      ),
     );
   }
 }
