@@ -2,6 +2,8 @@ library number_picker;
 
 import 'package:flutter/material.dart';
 
+// TODO customize the thumb and indicator color
+// TODO modify the thumb to be a customized image
 class NumberPickerIndicator extends StatefulWidget {
   // minimum value of the number picker
   final int? minValue;
@@ -39,6 +41,9 @@ class _NumberPickerIndicatorState extends State<NumberPickerIndicator> {
     return Slider(
       min: widget.minValue!.toDouble(),
       max: widget.maxValue!.toDouble(),
+      activeColor: Colors.grey,
+      inactiveColor: Colors.grey,
+      overlayColor: MaterialStateProperty.all(Colors.grey),
       onChanged: (double value) {
         setState(() {
           widget.value = value.toInt();
