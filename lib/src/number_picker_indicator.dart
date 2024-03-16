@@ -10,17 +10,20 @@ class NumberPickerIndicator extends StatefulWidget {
   final int? maxValue;
 
   // current value of the number picker
-  final int? value;
+  int? value;
 
-// callback when the value of the number picker changes
+  // callback when the value of the number picker changes
   final ValueChanged<int>? onChanged;
 
-  const NumberPickerIndicator(
+  NumberPickerIndicator(
       {super.key,
       required this.minValue,
       required this.maxValue,
       required this.value,
-      required this.onChanged});
+      required this.onChanged})
+      : assert(minValue! < maxValue! &&
+            value! >= minValue! &&
+            value! <= maxValue!);
 
   @override
   State<NumberPickerIndicator> createState() => _NumberPickerIndicatorState();
@@ -29,6 +32,20 @@ class NumberPickerIndicator extends StatefulWidget {
 class _NumberPickerIndicatorState extends State<NumberPickerIndicator> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return _slider();
+  }
+
+  Widget _slider() {
+    return Slider(
+      min: widget.minValue!.toDouble(),
+      max: widget.maxValue!.toDouble(),
+      onChanged: (double value) {
+        setState(() {
+          widget.value = value.toInt();
+          widget.onChanged!(value.toInt());
+        });
+      },
+      value: widget.value!.toDouble(),
+    );
   }
 }
