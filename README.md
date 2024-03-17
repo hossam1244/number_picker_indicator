@@ -1,6 +1,8 @@
 # NumberPickerIndicator
 NumberPickerIndicator is a custom widget designed for choosing a number using a slider.
 
+![example](https://github.com/hossam1244/number_picker_indicator/assets/20118074/0b9ff3b4-f067-4a92-b5dd-ce9bc8eb5a64)
+
 
 ## Example:
 
