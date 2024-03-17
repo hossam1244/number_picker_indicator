@@ -23,6 +23,12 @@ class NumberPickerIndicator extends StatefulWidget {
   // inactive color of the number picker
   final Color? inactiveColor;
 
+  // show title of the number picker
+  final bool showTitle;
+
+  // show number of the number picker
+  final bool showNumber;
+
   // current value of the number picker
   int? value;
 
@@ -34,7 +40,9 @@ class NumberPickerIndicator extends StatefulWidget {
       required this.onChanged,
       this.thumbColor,
       this.activeColor,
-      this.inactiveColor})
+      this.inactiveColor,
+      this.showNumber = false,
+      this.showTitle = false})
       : assert(
             minValue! < maxValue! && value! >= minValue && value <= maxValue);
 
@@ -45,7 +53,12 @@ class NumberPickerIndicator extends StatefulWidget {
 class _NumberPickerIndicatorState extends State<NumberPickerIndicator> {
   @override
   Widget build(BuildContext context) {
-    return _slider();
+    return Column(
+      children: [
+        if (widget.showTitle || widget.showNumber) _titleAndNumber(),
+        _slider(),
+      ],
+    );
   }
 
   Widget _slider() {
@@ -73,5 +86,23 @@ class _NumberPickerIndicatorState extends State<NumberPickerIndicator> {
         value: widget.value!.toDouble(),
       ),
     );
+  }
+
+  Widget _titleAndNumber() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        if (widget.showTitle) _title(),
+        if (widget.showNumber) _number(),
+      ],
+    );
+  }
+
+  Widget _title() {
+    return Text('Number Picker');
+  }
+
+  Widget _number() {
+    return Text(widget.value.toString());
   }
 }
